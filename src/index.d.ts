@@ -149,7 +149,7 @@ declare module 'discord-akairo' {
         public resolveUsers(text: string, users: Collection<Snowflake, User>, caseSensitive?: boolean, wholeWord?: boolean): Collection<Snowflake, User>;
     }
 
-    export class Command extends AkairoModule {
+    export class Command<T extends AkairoClient = AkairoClient> extends AkairoModule {
         public constructor(id: string, options?: CommandOptions);
 
         public aliases: string[];
@@ -157,7 +157,7 @@ declare module 'discord-akairo' {
         public quoted: boolean;
         public category: Category<string, Command>;
         public channel?: string;
-        public client: AkairoClient;
+        public client: T;
         public clientPermissions: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
         public cooldown?: number;
         public description: string | any;
