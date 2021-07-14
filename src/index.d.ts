@@ -58,12 +58,12 @@ declare module 'discord-akairo' {
         public static readdirRecursive(directory: string): string[];
     }
 
-    export class AkairoModule {
+    export class AkairoModule<T extends AkairoClient = AkairoClient> {
         public constructor(id: string, options?: AkairoModuleOptions);
 
         public category: Category<string, AkairoModule>;
         public categoryID: string;
-        public client: AkairoClient;
+        public client: T;
         public filepath: string;
         public handler: AkairoHandler;
         public id: string;
@@ -149,7 +149,7 @@ declare module 'discord-akairo' {
         public resolveUsers(text: string, users: Collection<Snowflake, User>, caseSensitive?: boolean, wholeWord?: boolean): Collection<Snowflake, User>;
     }
 
-    export class Command<T extends AkairoClient = AkairoClient> extends AkairoModule {
+    export class Command<T extends AkairoClient = AkairoClient> extends AkairoModule<T> {
         public constructor(id: string, options?: CommandOptions);
 
         public aliases: string[];
@@ -299,11 +299,11 @@ declare module 'discord-akairo' {
         public static is(value: any, type: string): value is Flag;
     }
 
-    export class Inhibitor extends AkairoModule {
+    export class Inhibitor<T extends AkairoClient = AkairoClient> extends AkairoModule<T> {
         public constructor(id: string, options?: InhibitorOptions);
 
         public category: Category<string, Inhibitor>;
-        public client: AkairoClient;
+        public client: T;
         public filepath: string;
         public handler: InhibitorHandler;
         public id: string;
@@ -338,11 +338,11 @@ declare module 'discord-akairo' {
         public on(event: 'load', listener: (inhibitor: Inhibitor, isReload: boolean) => any): this;
     }
 
-    export class Listener extends AkairoModule {
+    export class Listener<T extends AkairoClient = AkairoClient> extends AkairoModule<T> {
         public constructor(id: string, options?: ListenerOptions);
 
         public category: Category<string, Listener>;
-        public client: AkairoClient;
+        public client: T;
         public emitter: string | EventEmitter;
         public event: string;
         public filepath: string;
