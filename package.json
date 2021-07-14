@@ -1,5 +1,5 @@
 {
-    "name": "@soundofdarkness/discord-akairo",
+    "name": "discord-akairo",
     "version": "8.2.0",
     "description": "A personal fork of discord-akairo",
     "main": "./src/index.js",
