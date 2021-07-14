@@ -14,6 +14,16 @@
   </p>
 </div>
 
+## Information
+
+This is a personal fork of discord-akairo.
+This fork may or may not be maintained in the future,
+so rely on it with care.
+
+#### Changes
+- Added seperate precondition system for commands, to be able to have multiple checks per command while still being able to share them.
+
+
 ## Features
 
 #### Completely modular commands, inhibitors, and listeners.

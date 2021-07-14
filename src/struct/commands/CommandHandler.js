@@ -692,6 +692,19 @@ class CommandHandler extends AkairoHandler {
                 }
             }
         }
+        // Precondition(true => run), runPermChecks(true => cancel)
+        if(command.preconditions.length > 0){
+            for(const func of command.preconditions){
+                let res = func(message);
+                if(isPromise(res)){
+                    res = await res;
+                }
+                if(!res){
+                    this.emit(CommandHandlerEvents.COMMAND_BLOCKED, message, command, BuiltInReasons.PRECONDITION);
+                    return true;
+                }
+            }
+        }
 
         return false;
     }

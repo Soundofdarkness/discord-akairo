@@ -37,7 +37,8 @@ class Command extends AkairoModule {
             ignoreCooldown,
             ignorePermissions,
             flags = [],
-            optionFlags = []
+            optionFlags = [],
+            preconditions = []
         } = options;
 
         /**
@@ -184,6 +185,13 @@ class Command extends AkairoModule {
          */
         this.ignorePermissions = typeof ignorePermissions === 'function' ? ignorePermissions.bind(this) : ignorePermissions;
 
+
+        /**
+         * An array of functions to check if a specific command is allowed to run
+         * @type {PreconditionFunction[]}
+         */
+        this.preconditions = [...preconditions];
+
         /**
          * The ID of this command.
          * @name Command#id
@@ -264,6 +272,7 @@ module.exports = Command;
  * @prop {Snowflake|Snowflake[]|IgnoreCheckPredicate} [ignorePermissions] - ID of user(s) to ignore `userPermissions` checks or a function to ignore.
  * @prop {DefaultArgumentOptions} [argumentDefaults] - The default argument options.
  * @prop {string} [description=''] - Description of the command.
+ * @prop {PreconditionFunction[]} [preconditions] - Array of precondition functions to check if a command is allowed to run
  */
 
 /**
@@ -286,6 +295,14 @@ module.exports = Command;
  * @typedef {Function} ExecutionPredicate
  * @param {Message} message - Message to check.
  * @returns {boolean}
+ */
+
+/**
+ * A function used to check if a command that would be triggered can run by an arbitrary condition.
+ * True equals can run, False means it can't run
+ * @typedef {Function} PreconditionFunction
+ * @param {Message} message - Message to check
+ * @returns {boolean|Promise<boolean>}
  */
 
 /**
