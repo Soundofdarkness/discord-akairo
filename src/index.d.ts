@@ -175,6 +175,7 @@ declare module 'discord-akairo' {
         public regex: RegExp | RegexSupplier;
         public typing: boolean;
         public userPermissions: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
+        public preconditions: PreconditionFunction[]
 
         public before(message: Message): any;
         public condition(message: Message): boolean;
@@ -553,6 +554,7 @@ declare module 'discord-akairo' {
         typing?: boolean;
         userPermissions?: PermissionResolvable | PermissionResolvable[] | MissingPermissionSupplier;
         quoted?: boolean;
+        preconditions: PreconditionFunction[]
     }
 
     export interface CommandHandlerOptions extends AkairoHandlerOptions {
@@ -683,6 +685,8 @@ declare module 'discord-akairo' {
         => string | MessageOptions | MessageAdditions | Promise<string | MessageOptions | MessageAdditions>;
 
     export type RegexSupplier = (message: Message) => RegExp;
+
+    export type PreconditionFunction = (message: Message) => Promise<boolean> | boolean;
 
     export const Constants: {
         ArgumentMatches: {
